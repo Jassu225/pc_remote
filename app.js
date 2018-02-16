@@ -54,6 +54,7 @@ app.post('/commandExecuter', (req, res) => {
       execute("nircmd.exe", ["setsysvolume", `${value}`]);
       break;
   }
+  res.send("command will be executed");
 });
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

@@ -2,45 +2,11 @@
 <html>
     <head>
         <title>PC Controls</title>
-        <style>
-        html,body {
-            height: 100%;
-            margin: 0;
-        }
-        body {
-            display: grid;
-        }
-        .grid {
-            display: grid;
-        }
-        .grid-item {
-            justify-self: center;
-            align-self: center;
-        }
-        .btn-grid {
-            grid-template-rows: 1fr 1fr;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-gap: 40px;
-            grid-template-areas:
-                "shutdown reboot lock mute"
-                "volume monitor_on monitor_off  brightness";
-        }
-        .button {
-            display: inline-block;
-            width: 80px;
-            height: 30px;
-            color: white;
-            text-align: center;
-            background-color: #35a75f;;
-        }
-        .button p {
-            margin: 6px 0;
-            cursor: pointer;
-        }
-        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link id="stylesheet" rel="stylesheet" href="/public/css/pcRemote.css" />
     </head>
     <body>
-        <div class="grid-item">
+        <div class="grid-item" style="width:90%">
             <div class="grid btn-grid">
                 <div class="grid-item button reboot" onclick="request('reboot')"><p>reboot</p></div>
                 <div class="grid-item button lock" onclick="request('lock')"><p>lock</p></div>
@@ -80,6 +46,24 @@
                 console.log(responseText);
             });
         }
+
+        function detectmobile() { 
+            if( navigator.userAgent.match(/Android/i)
+                || navigator.userAgent.match(/webOS/i)
+                || navigator.userAgent.match(/iPhone/i)
+                || navigator.userAgent.match(/iPad/i)
+                || navigator.userAgent.match(/iPod/i)
+                || navigator.userAgent.match(/BlackBerry/i)
+                || navigator.userAgent.match(/Windows Phone/i)
+            ){
+                // mobile
+                document.getElementById("stylesheet").href = "/public/css/pcRemoteMobile.css";
+            }
+            else {
+                return false;
+            }
+        }
+        detectmobile();
         </script>
     </body>
 </html>

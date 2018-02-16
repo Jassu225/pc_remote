@@ -1,0 +1,34 @@
+html,body {
+    height: 100%;
+    margin: 0;
+}
+body {
+    display: grid;
+}
+.grid {
+    display: grid;
+}
+.grid-item {
+    justify-self: center;
+    align-self: center;
+}
+.btn-grid {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 40px;
+    grid-template-areas:
+        "shutdown reboot lock mute"
+        "volume monitor_off  brightness .";
+}
+.button {
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    color: white;
+    text-align: center;
+    background-color: #35a75f;;
+}
+.button p {
+    margin: 6px 0;
+    cursor: pointer;
+}
