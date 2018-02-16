@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head><title>PC Remote</title></head>
+    <style>
+    html,body {
+        height: 100%;
+        margin: 0;
+    }
+    body {
+        display: grid;
+    }
+    .grid-item {
+        justify-self: center;
+        align-self: center;
+    }
+    input[type="password"] {
+        border: 0;
+        border-bottom: 1.5px solid #777;
+        padding: 0;
+        text-align: center;
+    }
+    input[type="password"]:focus {
+        outline: 0;
+        border-color: #35a75f;
+    }
+    .button {
+        display: inline-block;
+        margin: 10px;
+    }
+    .center-text {
+        text-align: center;
+    }
+    </style>
+    <body>
+        <form id="form" class="grid-item" method="post" action="">
+            <div>
+                <input type="password" id="passcode" name="passcode" placeholder="password" onkeydown="preventSubmit(event)" required />
+            </div>
+            <div>
+                <input type="button" class="button" value="Submit" onclick="submitPasscode()"/>
+            </div>
+        </form>
+        <script src="/public/js/md5.js"></script>
+        <script>
+        
+        function submitPasscode() {
+            passcodeInput = document.getElementById('passcode');
+            if(passcodeInput.value.length == 0) {
+                alert('enter password');
+                return;
+            }
+            let passcode = passcodeInput.value;
+            let hashedPasscode =  hex_md5(passcode);
+            // console.log(hashedPasscode);
+            passcodeInput.value = hashedPasscode;
+            // document.getElementById('form').submit();
+            sendAJAX(hashedPasscode);
+        }
+
+        function sendAJAX(hashCode) {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log('response received');
+                    // window.location = 'about:blank';
+                    // document.write(this.responseText);
+                    // document.documentElement.innerHTML = "";
+                    // document.documentElement.innerHTML = this.reponseText;
+                    // document.body.innerHTML =  this.responseText;
+                    // let myWindow = window.open("", "_blank");
+                    // myWindow.document.write("<html>" + this.responseText + "</html>");
+                    document.open();
+                    document.write(this.response);
+                    document.close();
+                }
+            };
+            xhttp.open("POST", "/login", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("passcode=" + hashCode);
+        }
+
+        function preventSubmit(event) {
+            let x = event.which | event.keyCode;
+            if( x == 13 ) {  //Enter
+                event.preventDefault();
+            }
+        }
+
+        </script>
+    </body>
+</html>

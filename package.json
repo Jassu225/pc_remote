@@ -1,0 +1,29 @@
+{
+  "name": "pc_remote",
+  "version": "1.0.0",
+  "description": "A remote controller for computer",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jassu225/pc_remote.git"
+  },
+  "keywords": [
+    "PC",
+    "remote"
+  ],
+  "author": "Jaswanth Sai Sattenapalli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jassu225/pc_remote/issues"
+  },
+  "homepage": "https://github.com/Jassu225/pc_remote#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "node-cmd": "^3.0.0"
+  }
+}

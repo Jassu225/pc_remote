@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PC Controls</title>
+        <style>
+        html,body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: grid;
+        }
+        .grid {
+            display: grid;
+        }
+        .grid-item {
+            justify-self: center;
+            align-self: center;
+        }
+        .btn-grid {
+            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 40px;
+            grid-template-areas:
+                "shutdown reboot lock mute"
+                "volume monitor_on monitor_off  brightness";
+        }
+        .button {
+            display: inline-block;
+            width: 80px;
+            height: 30px;
+            color: white;
+            text-align: center;
+            background-color: #35a75f;;
+        }
+        .button p {
+            margin: 6px 0;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="grid-item">
+            <div class="grid btn-grid">
+                <div class="grid-item button reboot" onclick="request('reboot')"><p>reboot</p></div>
+                <div class="grid-item button lock" onclick="request('lock')"><p>lock</p></div>
+                <div class="grid-item button shutdown" onclick="request('shutdown')"><p>shutdown</p></div>
+                <div class="grid-item button mute" onclick="request('toggle_mute')"><p>toggle mute</p></div>
+
+                <input type="range" class="grid-item volume" title="volume" onchange="request('volume', this.value)" />
+                <div class="grid-item button monitor_off" onclick="request('off_monitor')"><p>off monitor</p></div>
+                <input type="range" class="grid-item brightness" title="brightness" onchange="request('brightness', this.value)" />
+            </div>
+        </div>
+        <script>
+        function sendRequest(params,callback) {
+            let http = new XMLHttpRequest();
+            let url = "/commandExecuter";
+            http.open("POST", url, true);
+
+            //Send the proper header information along with the request
+            http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            http.onreadystatechange = function() {//Call a function when the state changes.
+                if(http.readyState == 4 && http.status == 200) {
+                    callback(http.responseText);
+                }
+            }
+            http.send(params);
+        }
+
+        function request(cmd) {
+            sendRequest(`command=${cmd}`, (responseText) => {
+                console.log(responseText);
+            });
+        }
+
+        function request(cmd, value) {
+            sendRequest(`command=${cmd}&value=${value}`, (responseText) => {
+                console.log(responseText);
+            });
+        }
+        </script>
+    </body>
+</html>
