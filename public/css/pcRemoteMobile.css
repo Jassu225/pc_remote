@@ -14,24 +14,26 @@ body {
     align-self: center;
 }
 .btn-grid {
-    grid-template-rows: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-gap: 18px;
     grid-template-areas:
         "shutdown reboot"
         "lock mute"
-        "volume monitor_off"
-        ".  brightness";
+        "volume volume"
+        "monitor_off  play_pause"
+        "previous next"
+        "brightness brightness";
 }
 .button {
     display: inline-block;
     width: 100%;
-    height: 70px;
+    height: 60px;
     color: white;
     text-align: center;
-    background-color: #35a75f;;
+    background-color: #337b9b;
 }
 .button p {
-    margin: 26px 0;
+    margin: 16px 0;
     cursor: pointer;
 }

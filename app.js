@@ -28,7 +28,7 @@ app.post('/commandExecuter', (req, res) => {
       break;
 
     case "reboot":
-      execute("reboot",[]);
+      run("reboot");
       break;
 
     case "lock":
@@ -46,12 +46,24 @@ app.post('/commandExecuter', (req, res) => {
       break;
 
     case "shutdown":
-      execute("poweroff", []);
+      run("poweroff");
       break;
 
     case "volume":
       let value = Math.floor( (req.body.value / 100) * 65535); // 65535 steps for volume in nircmd 
       execute("nircmd.exe", ["setsysvolume", `${value}`]);
+      break;
+    
+    case "play_pause":
+      run("keystroke 179");
+      break;
+    
+    case "previous":
+      run("keystroke 177");
+      break;
+    
+    case "next":
+      run("keystroke 176");
       break;
   }
   res.send("command will be executed");

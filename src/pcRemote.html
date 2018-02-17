@@ -4,17 +4,25 @@
         <title>PC Controls</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link id="stylesheet" rel="stylesheet" href="/public/css/pcRemote.css" />
+        <link rel="stylesheet" href="/public/css/pcRemoteCommon.css"/>
     </head>
     <body>
         <div class="grid-item" style="width:90%">
             <div class="grid btn-grid">
                 <div class="grid-item button reboot" onclick="request('reboot')"><p>reboot</p></div>
                 <div class="grid-item button lock" onclick="request('lock')"><p>lock</p></div>
+
                 <div class="grid-item button shutdown" onclick="request('shutdown')"><p>shutdown</p></div>
                 <div class="grid-item button mute" onclick="request('toggle_mute')"><p>toggle mute</p></div>
 
                 <input type="range" class="grid-item volume" title="volume" onchange="request('volume', this.value)" />
+
                 <div class="grid-item button monitor_off" onclick="request('off_monitor')"><p>off monitor</p></div>
+                <div class="grid-item button play_pause" onclick="request('play_pause')"><p>play/pause</p></div>
+
+                <div class="grid-item button previous" onclick="request('previous')"><p>previous</p></div>
+                <div class="grid-item button next" onclick="request('next')"><p>next</p></div>
+
                 <input type="range" class="grid-item brightness" title="brightness" onchange="request('brightness', this.value)" />
             </div>
         </div>
