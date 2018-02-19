@@ -3,23 +3,61 @@ const path = require('path');
 const bodyParser = require('body-parser');  // for parsing data sent in a post request
 const { spawn } = require('child_process'); // for executing system commands
 const command = require('node-cmd');
+const line_reader = require('readline');
+const fs = require('fs');
 const app = express();
+
+let passwords = [];
+let givenPasscode = "";
+if (fs.existsSync("./passwords.txt")) {
+  let lineReader = line_reader.createInterface({
+    input: require('fs').createReadStream('./passwords.txt')
+  });
+  
+  lineReader.on('line', function (line) {
+    // console.log("i am a good boy" == line);
+    passwords.push(line);
+  });
+}
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.use('/public',express.static( path.join(__dirname,'./public')));
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname,"./src/index.html")));
+app.get('/', (req, res) => {
+  // Check if first run by checking the existance of password file
+  if (!fs.existsSync("./passwords.txt")) {
+    // First run
+    fs.writeFileSync("./passwords.txt","","utf8");
+    res.sendFile(path.join(__dirname, "./src/createPassword.html"));
+  } else
+    res.sendFile(path.join(__dirname,"./src/index.html"));
+});
+
+
+app.post("/createPasscode", (req, res) => {
+    if ( passwords.length > 0) {
+      res.sendStatus(403);
+    } else {
+      fs.appendFileSync("./passwords.txt", `${req.body.passcode}\n`, 'utf8');
+      passwords.push(req.body.passcode);
+      res.sendFile(path.join(__dirname,"./src/index.html"));
+    }
+});
 
 app.post('/login', (req, res) => {
-  let passcode = "d0b4e54ddd9f0982db522becb8041071";
-  if(req.body.passcode == passcode) {
+  givenPasscode = req.body.passcode;
+  if( passwords.find(checkForPassword) ) {
     res.sendFile(path.join(__dirname, "./src/pcRemote.html"));
   } else {
     res.sendFile(path.join(__dirname, "./src/index.html"));
   }
 });
+
+function checkForPassword(passcode) {
+  return passcode === givenPasscode;
+}
 
 app.post('/commandExecuter', (req, res) => {
   switch(req.body.command) {
