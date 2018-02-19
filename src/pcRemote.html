@@ -3,11 +3,11 @@
     <head>
         <title>PC Controls</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link id="stylesheet" rel="stylesheet" href="/public/css/pcRemote.css" />
         <link rel="stylesheet" href="/public/css/pcRemoteCommon.css"/>
+        <link id="stylesheet" rel="stylesheet" href="/public/css/pcRemote.css" />
     </head>
-    <body>
-        <div class="grid-item" style="width:90%">
+    <body class="grid">
+        <div id="main-grid" class="">
             <div class="grid btn-grid">
                 <div class="grid-item button reboot" onclick="request('reboot')"><p>reboot</p></div>
                 <div class="grid-item button lock" onclick="request('lock')"><p>lock</p></div>

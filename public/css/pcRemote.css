@@ -2,33 +2,79 @@ html,body {
     height: 100%;
     margin: 0;
 }
-body {
-    display: grid;
+
+/* Css grid support */
+@supports (display: grid) {
+    .grid {
+        display: grid;
+    }
+
+    .grid-item {
+        justify-self: center;
+        align-self: center;
+        width: 100%;
+        height: 40px;
+    }
+
+    .btn-grid {
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 20px;
+        grid-template-areas:
+            "shutdown reboot lock mute"
+            "volume volume volume volume"
+            "monitor_off  play_pause previous next"
+            "brightness brightness brightness brightness";
+    }
+
+    .volume {
+        grid-column: 1 / 5;
+    }
+
+    .brightness {
+        grid-column: 1 / 5;
+    }
+
+    #main-grid {
+        width: 90%;
+        justify-self: center;
+        align-self: center;
+    }
 }
-.grid {
-    display: grid;
+
+
+/* IF css grid does not support */
+@supports not (display: grid) {
+    .grid {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        height: 100%;
+    }
+
+    .grid-item {
+        width: 20%;
+        height: 40px;
+        margin: 1.5%;
+    }
+
+    input[type=range] {
+        width: 90%;
+    }
+    #main-grid {
+        width: 100%;
+    }
 }
-.grid-item {
-    justify-self: center;
-    align-self: center;
-}
-.btn-grid {
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: 40px;
-    grid-template-areas:
-        "shutdown reboot lock mute"
-        "volume monitor_off  brightness .";
-}
+
 .button {
     display: inline-block;
-    width: 80px;
-    height: 30px;
     color: white;
     text-align: center;
     background-color: #337b9b;
 }
+
 .button p {
-    margin: 6px 0;
+    margin: 9px 0;
     cursor: pointer;
 }
