@@ -80,7 +80,7 @@ app.post('/commandExecuter', (req, res) => {
       break;
     
     case "toggle_mute":
-      execute("nircmd.exe", ["mutesysvolume", "2"]);
+      execute("%userprofile%/batch/nircmd.exe", ["mutesysvolume", "2"]);
       break;
 
     case "shutdown":
@@ -89,7 +89,7 @@ app.post('/commandExecuter', (req, res) => {
 
     case "volume":
       let value = Math.floor( (req.body.value / 100) * 65535); // 65535 steps for volume in nircmd 
-      execute("nircmd.exe", ["setsysvolume", `${value}`]);
+      execute("%userprofile%/batch/nircmd.exe", ["setsysvolume", `${value}`]);
       break;
     
     case "play_pause":
