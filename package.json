@@ -23,7 +23,7 @@
   "homepage": "https://github.com/Jassu225/pc_remote#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "node-cmd": "^3.0.0"
   }
 }
